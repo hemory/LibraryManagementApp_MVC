@@ -8,51 +8,14 @@ namespace LibraryManagementApp_MVC.Controllers
 {
     public class BookController : Controller
     {
-        private static IList<Book> bookCollection = new List<Book>
-        {
-            new Book
-            {
-                Id = 1,
-                Title = "The Woman in Cabin 10",
-                Author = "Ruth Ware",
-                YearPublished = "2020"
-            },
-            new Book
-            {
-                Id = 2,
-                Title = "The Lost Queen",
-                Author = "Signe Pike",
-                YearPublished = "2020"
-            },
-            new Book
-            {
-                Id = 3,
-                Title = "Three Things About Elsie",
-                Author = "Joanna Cannon",
-                YearPublished = "2020"
-            },
-            new Book
-            {
-                Id = 4,
-                Title = "The Library Book",
-                Author = "Susan Orlean",
-                YearPublished = "2020"
-            },
-            new Book
-            {
-                Id = 5,
-                Title = "Watching You",
-                Author = "Lisa Jewell",
-                YearPublished = "2020"
-            }
-        };
+        private readonly BookContext db = new BookContext();
 
 
         // GET: Book
         public ActionResult Index()
         {
 
-            return View(bookCollection.OrderBy(b => b.Id).ToList());
+            return View(db.Books.ToList());
         }
 
 
@@ -70,7 +33,8 @@ namespace LibraryManagementApp_MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                bookCollection.Add(book);
+                db.Books.Add(book);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -86,7 +50,7 @@ namespace LibraryManagementApp_MVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var book = bookCollection.FirstOrDefault(b => b.Id == id);
+            var book = db.Books.FirstOrDefault(b => b.Id == id);
 
             return View(book);
         }
@@ -96,10 +60,11 @@ namespace LibraryManagementApp_MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var currentBook = bookCollection.FirstOrDefault(b => b.Id == updatedBook.Id);
-                bookCollection.Remove(currentBook);
+                var currentBook = db.Books.FirstOrDefault(b => b.Id == updatedBook.Id);
+                db.Books.Remove(currentBook);
 
-                bookCollection.Add(updatedBook);
+                db.Books.Add(updatedBook);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
@@ -117,7 +82,7 @@ namespace LibraryManagementApp_MVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var book = bookCollection.FirstOrDefault(b => b.Id == id);
+            var book = db.Books.FirstOrDefault(b => b.Id == id);
 
             return View(book);
         }
@@ -126,8 +91,10 @@ namespace LibraryManagementApp_MVC.Controllers
         [HttpPost]
         public ActionResult Delete(Book book)
         {
-            var currentBook = bookCollection.FirstOrDefault(b => b.Id == book.Id);
-            bookCollection.Remove(currentBook);
+            var currentBook = db.Books.FirstOrDefault(b => b.Id == book.Id);
+            db.Books.Remove(currentBook);
+
+            db.SaveChanges();
 
             return RedirectToAction("Index");
         }
