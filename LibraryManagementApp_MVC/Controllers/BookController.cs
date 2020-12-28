@@ -1,5 +1,4 @@
 ﻿using LibraryManagementApp_MVC.Models;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -50,7 +49,7 @@ namespace LibraryManagementApp_MVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var book = db.Books.FirstOrDefault(b => b.Id == id);
+            var book = db.Books.Find(id);
 
             return View(book);
         }
@@ -60,7 +59,7 @@ namespace LibraryManagementApp_MVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                var currentBook = db.Books.FirstOrDefault(b => b.Id == updatedBook.Id);
+                var currentBook = db.Books.Find(updatedBook.Id);
                 db.Books.Remove(currentBook);
 
                 db.Books.Add(updatedBook);
@@ -82,7 +81,7 @@ namespace LibraryManagementApp_MVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var book = db.Books.FirstOrDefault(b => b.Id == id);
+            var book = db.Books.Find(id);
 
             return View(book);
         }
@@ -91,7 +90,7 @@ namespace LibraryManagementApp_MVC.Controllers
         [HttpPost]
         public ActionResult Delete(Book book)
         {
-            var currentBook = db.Books.FirstOrDefault(b => b.Id == book.Id);
+            var currentBook = db.Books.Find(book.Id);
             db.Books.Remove(currentBook);
 
             db.SaveChanges();
