@@ -136,6 +136,10 @@
     <Compile Include="Migrations\202012282151591_initial.designer.cs">
       <DependentUpon>202012282151591_initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012282222596_AddedDisplayAnnotation.cs" />
+    <Compile Include="Migrations\202012282222596_AddedDisplayAnnotation.designer.cs">
+      <DependentUpon>202012282222596_AddedDisplayAnnotation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\BookContext.cs" />
@@ -201,6 +205,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202012282151591_initial.resx">
       <DependentUpon>202012282151591_initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012282222596_AddedDisplayAnnotation.resx">
+      <DependentUpon>202012282222596_AddedDisplayAnnotation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

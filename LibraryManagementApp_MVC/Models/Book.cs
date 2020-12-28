@@ -12,6 +12,7 @@ namespace LibraryManagementApp_MVC.Models
         [Required]
         public string Author { get; set; }
 
+        [Display(Name = "Year Published")]
         [Required]
         public string YearPublished { get; set; }
     }
