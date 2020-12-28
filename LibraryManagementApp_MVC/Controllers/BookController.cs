@@ -94,12 +94,17 @@ namespace LibraryManagementApp_MVC.Controllers
         [HttpPost]
         public ActionResult Edit(Book updatedBook)
         {
-            var currentBook = bookCollection.FirstOrDefault(b => b.Id == updatedBook.Id);
-            bookCollection.Remove(currentBook);
+            if (ModelState.IsValid)
+            {
+                var currentBook = bookCollection.FirstOrDefault(b => b.Id == updatedBook.Id);
+                bookCollection.Remove(currentBook);
 
-            bookCollection.Add(updatedBook);
+                bookCollection.Add(updatedBook);
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+
+            return View(updatedBook);
         }
 
 
@@ -121,8 +126,8 @@ namespace LibraryManagementApp_MVC.Controllers
         [HttpPost]
         public ActionResult Delete(Book book)
         {
-            var bookToDelete = bookCollection.FirstOrDefault(b => b.Id == book.Id);
-            bookCollection.Remove(bookToDelete);
+            var currentBook = bookCollection.FirstOrDefault(b => b.Id == book.Id);
+            bookCollection.Remove(currentBook);
 
             return RedirectToAction("Index");
         }
