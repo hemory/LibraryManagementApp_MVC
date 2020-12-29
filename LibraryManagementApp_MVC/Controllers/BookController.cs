@@ -11,10 +11,18 @@ namespace LibraryManagementApp_MVC.Controllers
 
 
         // GET: Book
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
 
-            return View(db.Books.ToList());
+            var books = from b in db.Books
+                select b;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(b => b.Author.Contains(searchString));
+
+            }
+            return View(books.ToList());
         }
 
 
