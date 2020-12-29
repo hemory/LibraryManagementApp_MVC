@@ -4,17 +4,16 @@
     ViewBag.Title = "List Of Books";
 }
 
-    <h2>List Of Books</h2>
+<h2 id="title">List Of Books</h2>
 
-<p>
-    @Html.ActionLink("Add New Book", "Create")
-</p>
+
+
 
 @using (Html.BeginForm())
 {
     <p>
         Find by Author: @Html.TextBox("SearchString")
-        <input type="submit" value="Search"/>
+        <input type="submit" value="Search" />
     </p>
 }
 <table class="table">
@@ -31,22 +30,26 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Author)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.YearPublished)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearPublished)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<button type="button" class="btn btn-primary">@Html.ActionLink("Add New Book", "Create", new { @class = "add-btn" })</button>
+

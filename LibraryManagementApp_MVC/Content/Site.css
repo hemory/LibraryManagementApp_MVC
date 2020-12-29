@@ -22,3 +22,18 @@ select,
 textarea {
     max-width: 280px;
 }
+
+a.nav-link {
+    color: whitesmoke;
+}
+
+h2#title {
+    padding-top: 23px;
+    padding-bottom: 29px;
+    text-align: center;
+}
+
+button.btn.btn-primary {
+    margin-bottom: 39px;
+    margin-top: 15px;
+}
